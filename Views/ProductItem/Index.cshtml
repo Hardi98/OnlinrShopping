@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<ul class="nav nav-tabs" style="margin: 10px 0px 0px 0px; background-color: #eeeeee;">
+    <li class="active"><a data-toggle="tab" href="#firstTab">Product Add</a></li>
+    <li><a data-toggle="tab" href="#secondTab">Product List</a></li>
+</ul>
+<div class="tab-content" style="border: #eeeeee 2px solid; ">
+    <div id="firstTab" class="tab-pane fade in active" style="padding:15px;">@Html.Action("AddOrEditItem")</div>
+    <div id="secondTab" class="tab-pane fade in" style="padding:15px;">@Html.Action("ViewAllItems")</div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

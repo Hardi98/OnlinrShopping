@@ -1,0 +1,29 @@
+﻿@using OnlinrShopping.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default" style="margin:20px;">
+    <div class="panel-heading" style="background: cadetblue;"><h4 class="tex" >Product List</h4></div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            @foreach (tblProductItem product in ViewBag.products)
+            {
+                <tr>
+                    <div class="col-md-3" style="border: black 1px solid;padding: 10px;border-radius: 75px;margin:20px;">
+                        <div class="col-md-12"><center><img src="~/Content/Images/@product.Image" style="width:70%;height:150px;border-radius:40px;" /></center></div>
+                        <div class="col-md-12 text-center"><h3 style="font-size:18px;">@product.ItemName</h3></div>
+                        <div class="col-md-12">
+                            <div style="float: left; margin-left:5px;"><h4><b>@product.Price</b></h4></div>
+                            <div style="float:right;"><a class="btn btn-success shop-button" style="border-radius:15px;" href="@Url.Action("Buy", "Productcart", new { id = product.ItemID})">Add to Cart</a></div>
+                        </div>
+                    </div>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_Cart")

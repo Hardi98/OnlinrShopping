@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OnlinrShopping.Models.tblProductItem>
+
+@{
+    ViewBag.Title = "ViewAllItems";
+    Layout = null;
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="~/Content/Images/@item.Image" width="100" height="100" style="border-radius:35px;">
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm" style="border-radius:15px;" onclick="Edit('@Url.Action("AddOrEditItem", "ProductItem" , new { id=@item.ItemID})')"><i class="fa fa-pencil fa-lg"> Edit</i></a>
+                    <a class="btn btn-danger btn-sm" style="border-radius:15px;" onclick="Delete('@Url.Action("DeleteItem", "ProductItem" , new { id=@item.ItemID})')"><i class="fa fa-trash fa-lg"> Delete</i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

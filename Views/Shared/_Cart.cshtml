@@ -1,0 +1,50 @@
+﻿@using OnlinrShopping.Models;
+
+@{Session["cart"] = Session["cart"] != null ? Session["cart"] : new List<ProductCartItems>();}
+
+<div class="panel panel-default" style="margin:20px;">
+    <div class="panel-heading">
+        <h4>Your Cart Details</h4>
+    </div>
+    <div class="panel-body">
+        <div style="float:right;">
+            <h4>Number of Items in Cart:@Session["cartCount"]</h4>
+        </div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+                <th></th>
+            </tr>
+            @foreach (ProductCartItems item in (List<ProductCartItems>)Session["cart"])
+            {
+                <tr>
+                    <td><img src="~/Content/Images/@item.Product.Image" width="50" height="50" /> </td>
+                    <td>@item.Product.ItemName</td>
+                    <td>@item.Product.Price</td>
+                    <td>
+                        <a class="btn btn-success btn-sm shop-button" style="border-radius:15px;" href="@Url.Action("IncreaseQty", "Productcart", new { id = item.Product.ItemID})">+</a>
+                        @item.Quantity
+                        <a class="btn btn-info btn-danger btn-sm shop-button" style="border-radius:15px;" href="@Url.Action("DecreaseQty", "Productcart", new { id = item.Product.ItemID})">-</a>
+                    </td>
+                    <td>@(item.Product.Price * item.Quantity)</td>
+                    <td><a class="btn btn-danger btn-sm" style="border-radius:15px;" href="@Url.Action("Remove", "Productcart", new { id = item.Product.ItemID })"><i class="fa fa-close fa-lg"> Remove from Cart</i></a></td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="4"><b>Total</b></td>
+                <td>
+                    @{
+                        List<ProductCartItems> cart = (List<ProductCartItems>)Session["cart"];
+                        var total = cart.Sum(item => item.Product.Price * item.Quantity);
+                    }
+                    @total
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
